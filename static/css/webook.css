@@ -1,0 +1,18 @@
+.date {
+    color: gray;
+    font-size: 12px;
+}
+
+h1 a {
+    color: #FCA205;
+    font-family: fantasy;
+}
+
+body {
+    padding-left: 15px;
+}
+
+.post {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 45px;
+}
