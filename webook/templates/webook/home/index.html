@@ -1,20 +1,29 @@
 {% extends 'webook/layouts/base.html' %}
-{% load bootstrap %}
 
 {% block content %}
+
     <div class="jumbotron">
         <div class="container" style="padding: 64px">
             <h1 class="display-3">Project Webook</h1>
             <p>Webook is a help management book purchase subsidy system.</p>
-            <div class="container row span-12">
-                <div class="col-lg-2 col-sm-12">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Register »</a>
+
+            {% if not user.is_authenticated %}
+                <div class="container row span-12">
+                    <div class="col-lg-2 col-sm-12"
+                         style="padding-left: 0">
+                        <a class="btn btn-primary btn-lg" href="{% url 'accounts:signup' %}" role="button">
+                            Register »
+                        </a>
+                    </div>
+                    <div class="sm-columns"></div>
+                    <div class="col-lg-2 col-sm-12" style="padding-left: 0">
+                        <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">
+                            Login »
+                        </a>
+                    </div>
                 </div>
-                <div class="sm-columns"></div>
-                <div class="col-lg-2 col-sm-12">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Login »</a>
-                </div>
-            </div>
+            {% endif %}
+
         </div>
     </div>
 

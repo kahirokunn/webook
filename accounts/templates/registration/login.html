@@ -1,0 +1,36 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="signin row span-12">
+        <form method="post" action="{% url 'login' %}" class="col-lg-9 col-md-9 col-sm-9">
+
+            <img class="mb-4" src="{% static 'img/logo.jpg' %}" style="width: 72px; height: 72px; border-radius: 15px">
+            <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
+
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oh snap!</strong><br>Username or password didn't match.
+                </div>
+            {% endif %}
+
+            <label for="inputName" class="sr-only">User name</label>
+            <input name="username" type="text" id="inputName" class="form-control" placeholder="User name"
+                   required="" autofocus="">
+
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+                   required="">
+
+            <div class="checkbox mb-3">
+                <label><input type="checkbox" value="remember-me"> Remember me</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <input type="hidden" name="next" value={{ next }}/>
+            {% csrf_token %}
+
+        </form>
+    </div>
+
+{% endblock %}
