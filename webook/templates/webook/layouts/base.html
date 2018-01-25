@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap/sticky-footer-navbar.css' %}">
 </head>
 <body>
-{% include 'webook/navbars/default-navbar.html' %}
+{% include 'webook/layouts/navbars/default-navbar.html' %}
 
-<main role="main" class="container">
+<main role="main">
     {% block content %}
     {% endblock %}
 </main>
 
-{% include 'webook/footer/default-footer.html' %}
+{% include 'webook/layouts/footer/default-footer.html' %}
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

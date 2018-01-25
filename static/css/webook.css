@@ -1,0 +1,6 @@
+@media only screen and (max-width: 699px) {
+  .sm-columns {
+    margin: 10px;
+    width: 100vw;
+  }
+}
