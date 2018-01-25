@@ -1,0 +1,4 @@
+Django==2.0.1
+django-bootstrap-form==3.3
+PyMySQL==0.8.0
+pytz==2017.3
