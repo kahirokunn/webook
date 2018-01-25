@@ -1,4 +1,4 @@
-from webook.models import Post
+from webook.models import Books
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse

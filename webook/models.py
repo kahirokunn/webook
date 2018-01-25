@@ -1,23 +1,29 @@
 from django.db import models
 from django.utils import timezone
 
+_TYPE_CHOICES = (
+    (1, 'e-book'),
+    (2, 'paper'),
+)
 
-class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    published_at = models.DateTimeField(blank=True, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Books(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=False)
+    title = models.CharField(max_length=200, null=False)
+    price = models.IntegerField(null=False)
+    type = models.IntegerField(choices=_TYPE_CHOICES)
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    thumbnail_url = models.TextField(null=True, blank=True)
+    orderd_page_url = models.TextField(null=True, blank=True)
+    book_url = models.TextField(null=True, blank=True)
+
+    ordered_at = models.DateTimeField(blank=True, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+    updated_at = models.DateTimeField(auto_now=True, null=False)
 
     @staticmethod
     def published_list():
-        return Post.objects.filter(published_at__lte=timezone.now()).order_by('created_at')
+        return Books.objects.filter(published_at__lte=timezone.now()).order_by('created_at')
 
     def __str__(self):
         return self.title
