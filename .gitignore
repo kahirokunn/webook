@@ -7,7 +7,6 @@
 *.py[co]
 .tox/
 .idea
-.python-version
 __pycache__
 MANIFEST
 dist/
@@ -19,3 +18,4 @@ tests/.coverage
 build/
 tests/report/
 myenv
+.env
