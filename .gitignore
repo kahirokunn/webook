@@ -8,7 +8,6 @@
 .tox/
 .idea
 .python-version
-myenv
 __pycache__
 MANIFEST
 dist/
@@ -19,3 +18,4 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
+myenv/lib/python3.6/site-packages/*
