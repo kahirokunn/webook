@@ -18,4 +18,4 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
-myenv/lib/python3.6/site-packages/*
+myenv
