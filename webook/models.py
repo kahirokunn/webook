@@ -11,7 +11,7 @@ class Books(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=200, null=False)
     price = models.IntegerField(null=False)
-    type = models.IntegerField(choices=_TYPE_CHOICES)
+    book_type = models.IntegerField(choices=_TYPE_CHOICES, default=None)
 
     thumbnail_url = models.TextField(null=True, blank=True)
     orderd_page_url = models.TextField(null=True, blank=True)
