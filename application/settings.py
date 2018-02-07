@@ -149,12 +149,12 @@ LOGGING = {
     'formatters': {  # 出力フォーマットを文字列形式で指定する
         'all': {  # 出力フォーマットに`all`という名前をつける
             'format': '\t'.join([
-                "[%(levelname)s]",
-                "asctime:%(asctime)s",
-                "module:%(module)s",
-                "message:%(message)s",
-                "process:%(process)d",
-                "thread:%(thread)d",
+                '[%(levelname)s]',
+                'asctime:%(asctime)s',
+                'module:%(module)s',
+                'message:%(message)s',
+                'process:%(process)d',
+                'thread:%(thread)d',
             ])
         },
     },
