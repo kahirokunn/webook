@@ -11,17 +11,34 @@ class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('home')
     template_name = 'registration/signup.html'
+    success_messages = [
+        'Welcome to Webook app!',
+        'It succeeded in user registration!',
+        'Let\'s immediately read the book together now!',
+    ]
 
+    # バリデーションを通った時に実行されるメソッド
+    # Http Responseを必ず返さなければならない仕様
     def form_valid(self, form):
-        """バリデーションを通った時"""
-        # ユーザー登録をする
+        """
+        新規登録してホーム画面で歓迎する
+
+        [issue]
+        以下の登録・自動ログインなどを切り離したいどれも
+        requestを利用するライブラリを多様している弊害で
+        requestがserviceやcomponentにまで侵食してしまう課題がある
+        **もし良いやり方があったら、提案してほしい**
+        """
+
+        # ユーザー生成する
         form = UserCreationForm(self.request.POST)
 
         # get_success_urlでself.objectにformが入っている前提でコードが書かれている
         self.object = form.save()
-        messages.success(self.request, "Welcome to Webook app!")
-        messages.success(self.request, "It succeeded in user registration!")
-        messages.success(self.request, "Let's immediately read the book together now!")
+
+        for success_message in self.success_messages:
+            messages.success(self.request, success_message)
+
         Log.info('success to signup.')
 
         # 自動ログインする
@@ -33,5 +50,5 @@ class SignUpView(generic.CreateView):
             login(self.request, user)
             return HttpResponseRedirect(self.get_success_url())
         else:
-            Log.info('i don\'t no why, failed login.')
+            Log.info('failed auto login in after registration.')
             return HttpResponseRedirect(reverse_lazy('login'))
