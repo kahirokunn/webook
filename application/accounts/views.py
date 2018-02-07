@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from application.helper import Log
+from ..submodules.helper import Log
 
 
 class SignUpView(generic.CreateView):
