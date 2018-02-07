@@ -32,8 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 AUTO_LOAD_DOMAINS = [
-    'application.webook',
+    'application.resources',
+    'application.index',
     'application.accounts',
+    'application.books',
 ]
 
 INSTALLED_APPS = [
@@ -135,6 +137,8 @@ STATIC_URL = '/application/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'application/static'),
 )
+
+LOGIN_REDIRECT_URL = '/'
 
 LOGGING = {
     'version': 1,  # これを設定しないと怒られる
