@@ -19,3 +19,4 @@ build/
 tests/report/
 myenv
 .env
+django.log
