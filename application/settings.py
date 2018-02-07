@@ -80,7 +80,8 @@ TEMPLATES = [
 ]
 
 for domain in AUTO_LOAD_DOMAINS:
-    TEMPLATES[0]['DIRS'] = os.path.join(BASE_DIR, domain.replace('.', '/') + '/templates')
+    TEMPLATES[0]['DIRS'] = os.path.join(
+        BASE_DIR, domain.replace('.', '/') + '/templates')
 
 WSGI_APPLICATION = 'application.wsgi.application'
 
@@ -90,29 +91,31 @@ WSGI_APPLICATION = 'application.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DATABASE_NAME', 'default_database_name'),
-        'USER': os.getenv('DATABASE_USER', 'default_database_user'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'default_database_password'),
-        'HOST': os.getenv('DATABASE_HOST', 'default_database_host'),
-        'PORT': os.getenv('DATABASE_PORT', 'default_database_port'),
+        'NAME': os.getenv('DATABASE_NAME', 'empty_db_name'),
+        'USER': os.getenv('DATABASE_USER', 'empty_db_user'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'empty_db_password'),
+        'HOST': os.getenv('DATABASE_HOST', 'empty_db_host'),
+        'PORT': os.getenv('DATABASE_PORT', 'empty_db_port'),
     }
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
+# 長すぎてpep8違反になるので切り分け
+_pv_package_name = 'django.contrib.auth.password_validation'
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': _pv_package_name + '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': _pv_package_name + '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': _pv_package_name + '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': _pv_package_name + '.NumericPasswordValidator',
     },
 ]
 
@@ -140,8 +143,9 @@ STATICFILES_DIRS = (
 
 LOGIN_REDIRECT_URL = '/'
 
+# 置き換えるlogbookに置き換える予定
 LOGGING = {
-    'version': 1,  # これを設定しないと怒られる
+    'version': 1,
     'formatters': {  # 出力フォーマットを文字列形式で指定する
         'all': {  # 出力フォーマットに`all`という名前をつける
             'format': '\t'.join([

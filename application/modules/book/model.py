@@ -23,7 +23,8 @@ class Books(models.Model):
 
     @staticmethod
     def published_list():
-        return Books.objects.filter(published_at__lte=timezone.now()).order_by('created_at')
+        return Books.objects.filter(published_at__lte=timezone.now()).order_by(
+            'created_at')
 
     def __str__(self):
         return self.title
