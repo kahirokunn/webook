@@ -31,11 +31,21 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# 認証時に利用するユーザーモデル
+AUTH_USER_MODEL = 'auth.User'
+
 AUTO_LOAD_DOMAINS = [
     'application.resources',
     'application.index',
     'application.accounts',
     'application.books',
+]
+
+# メモ： moduleがapp名になる
+# 例：'application.modules.book' => bookがapp名
+AUTO_LOAD_MODULES = [
+    'application.modules.book',
+    'application.modules.order_book',
 ]
 
 INSTALLED_APPS = [
@@ -49,6 +59,9 @@ INSTALLED_APPS = [
 ]
 
 for domain in AUTO_LOAD_DOMAINS:
+    INSTALLED_APPS.append(domain)
+
+for domain in AUTO_LOAD_MODULES:
     INSTALLED_APPS.append(domain)
 
 MIDDLEWARE = [
