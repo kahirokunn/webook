@@ -1,14 +1,11 @@
-from . import iservice
-from .components import get_book_paginated
-from .model import Book
+from .iservice import IService
+from .models import Book
 
 
-class Service(iservice):
-
-    @classmethod
-    def get_books(cls, page):
-        return get_book_paginated(page)
+class Service(IService):
+    """本サービス"""
 
     @classmethod
-    def get_all_book(cls):
-        return Book.get_all()
+    def get_book(cls) -> Book:
+        """本を取得する"""
+        return Book()

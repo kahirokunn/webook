@@ -1,15 +1,12 @@
 from abc import ABCMeta, abstractmethod
-from django.core.paginator import Paginator
+from .models import Book
 
 
 class IService(metaclass=ABCMeta):
+    """本サービス"""
 
     @classmethod
     @abstractmethod
-    def get_books(cls, page) -> Paginator:
-        pass
-
-    @classmethod
-    @abstractmethod
-    def get_all_book(cls) -> list:
+    def get_book(cls) -> Book:
+        """本を取得する"""
         pass
