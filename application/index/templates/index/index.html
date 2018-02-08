@@ -1,0 +1,53 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <style>
+        @media (min-width: 992px) {
+            .lg-lineup {
+                display: flex;
+            }
+
+            .lg-lineup > * {
+                margin-left: 5px;
+            }
+        }
+    </style>
+
+    <div class="jumbotron">
+        <div class="container" style="padding: 64px">
+            <h1 class="display-3">Project Webook</h1>
+            <p>Webook is a help management book purchase subsidy system.</p>
+
+            {% if user.is_authenticated %}
+                <h2 class="lg-lineup">
+                    Hi <p>{{ user.username }} !</p>
+                </h2>
+            {% else %}
+                <div class="container row span-12">
+                    <div class="col-lg-2 col-sm-12"
+                         style="padding-left: 0">
+                        <a class="btn btn-primary btn-lg" href="{% url 'accounts:signup' %}" role="button">
+                            Register »
+                        </a>
+                    </div>
+                    <div class="sm-columns"></div>
+                    <div class="col-lg-2 col-sm-12" style="padding-left: 0">
+                        <a class="btn btn-primary btn-lg" href="{% url 'accounts:login' %}" role="button">
+                            Login »
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
