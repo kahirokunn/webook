@@ -11,12 +11,18 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 from dotenv import load_dotenv
+import pymysql
 
+pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+APP_ROOT_PATH = os.path.dirname(os.path.dirname(__file__)) + '/application'
+sys.path.append(APP_ROOT_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -35,17 +41,17 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'auth.User'
 
 AUTO_LOAD_DOMAINS = [
-    'application.resources',
-    'application.index',
-    'application.accounts',
-    'application.books',
+    'resources',
+    'index',
+    'accounts',
+    'books',
 ]
 
 # メモ： moduleがapp名になる
-# 例：'application.modules.book' => bookがapp名
+# 例：'modules.book' => modulesはパッケージ名でbookがmoduleなのでapp名
 AUTO_LOAD_MODULES = [
-    'application.modules.book',
-    'application.modules.order_book',
+    'modules.book',
+    'modules.order_book',
 ]
 
 INSTALLED_APPS = [
@@ -74,7 +80,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'application.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -96,7 +102,7 @@ for domain in AUTO_LOAD_DOMAINS:
     TEMPLATES[0]['DIRS'] = os.path.join(
         BASE_DIR, domain.replace('.', '/') + '/templates')
 
-WSGI_APPLICATION = 'application.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
