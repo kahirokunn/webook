@@ -1,8 +1,7 @@
-from .iservice import IService
 from .models import OrderBook
 
 
-class Service(IService):
+class Service:
     """購入発注書サービス"""
 
     @classmethod

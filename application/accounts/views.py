@@ -4,12 +4,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from ..submodules.helper import Log
+from submodules.helper import Log
+from constants import ROOT_NAME
 
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy(ROOT_NAME)
     template_name = 'registration/signup.html'
     success_messages = [
         'Welcome to Webook app!',
