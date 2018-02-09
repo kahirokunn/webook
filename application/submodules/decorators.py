@@ -1,9 +1,11 @@
 from django.http import HttpResponseNotAllowed
 from submodules.constants import REQUEST_METHOD_LIST
+from functools import wraps
 
 
 def valid_request_method(request_method_list=REQUEST_METHOD_LIST):
     """許可されたrequest methodか判定する"""
+
     def decorator(func):
         @wraps(func)
         def inner(request, *args, **kwargs):
