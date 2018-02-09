@@ -14,15 +14,16 @@ import os
 import sys
 from dotenv import load_dotenv
 import pymysql
+from application.constants import ROOT_NAME
+from django.template import RequestContext
 
-pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+APP_ROOT_PATH = BASE_DIR + '/application'
+sys.path.append(APP_ROOT_PATH)
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
-
-APP_ROOT_PATH = os.path.dirname(os.path.dirname(__file__)) + '/application'
-sys.path.append(APP_ROOT_PATH)
+pymysql.install_as_MySQLdb()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -93,6 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resources.templates.context_processors.constants',
             ],
         },
     },
@@ -198,7 +200,7 @@ LOGGING = {
     },
     'loggers': {  # どんなloggerがあるかを設定する
         'webook_logger': {  # loggerを定義
-            'handlers': ['file', 'console'],  # 先述のfile, consoleの設定で出力
+            'handlers': ['file', 'console'],
             'level': get_debug_or_prod(),
         },
     },
