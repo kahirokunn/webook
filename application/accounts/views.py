@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from submodules.helper import Log
+from submodules.helper import get_logger
 from constants import ROOT_NAME
 
 
@@ -40,7 +40,8 @@ class SignUpView(generic.CreateView):
         for success_message in self.success_messages:
             messages.success(self.request, success_message)
 
-        Log.info('success to signup.')
+        logger = get_logger()
+        logger.info('success to signup.')
 
         # 自動ログインする
         user = authenticate(self.request,
@@ -51,5 +52,5 @@ class SignUpView(generic.CreateView):
             login(self.request, user)
             return HttpResponseRedirect(self.get_success_url())
         else:
-            Log.info('failed auto login in after registration.')
+            logger.warning('failed auto login in after registration.')
             return HttpResponseRedirect(reverse_lazy('login'))
