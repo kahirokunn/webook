@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.views.decorators.http import require_GET
 
 
-def dashboard(request):
+@require_GET
+def index(request):
     return render(request, 'index/index.html')
