@@ -1,9 +1,5 @@
 import logging
 
 
-class Log:
-
-    @staticmethod
-    def info(msg):
-        logger = logging.getLogger('command')
-        logger.info(msg)
+def get_logger(space='something'):
+    return logging.getLogger(space)
