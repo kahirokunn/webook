@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from submodules.helper import get_logger
+from submodules import logger
 from constants import ROOT_NAME
 
 
@@ -40,7 +40,6 @@ class SignUpView(generic.CreateView):
         for success_message in self.success_messages:
             messages.success(self.request, success_message)
 
-        logger = get_logger()
         logger.info('success to signup.')
 
         # 自動ログインする

@@ -18,7 +18,7 @@ class Book(models.Model):
 
     @classmethod
     def get_all(cls) -> list:
-        return cls.objects.all().order_by('created_at')
+        return list(cls.objects.all().order_by('created_at'))
 
     def __str__(self):
         return self.title

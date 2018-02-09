@@ -1,1 +1,1 @@
-ROOT_NAME = 'home'
+ROOT_NAME = 'index:index'
