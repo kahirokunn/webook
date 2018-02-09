@@ -7,14 +7,14 @@ _TYPE_CHOICES = (
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200, null=False)
+    title = models.CharField(max_length=200)
     thumbnail_url = models.TextField(null=True, blank=True)
     orderd_page_url = models.TextField(null=True, blank=True)
     book_url = models.TextField(null=True, blank=True)
     type = models.IntegerField(choices=_TYPE_CHOICES,
                                default=_TYPE_CHOICES[1][0])
-    created_at = models.DateTimeField(auto_now_add=True, null=False)
-    updated_at = models.DateTimeField(auto_now=True, null=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     @classmethod
     def get_all(cls) -> list:

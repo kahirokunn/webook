@@ -1,8 +1,7 @@
-from .iservice import IService
-from .models import Book
+from modules.book.models import Book
 
 
-class Service(IService):
+class Service:
     """本サービス"""
 
     @classmethod
