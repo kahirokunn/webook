@@ -13,12 +13,17 @@ class Book(models.Model):
     book_url = models.TextField(null=True, blank=True)
     type = models.IntegerField(choices=_TYPE_CHOICES,
                                default=_TYPE_CHOICES[1][0])
+
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @classmethod
     def get_all(cls) -> list:
-        return list(cls.objects.all().order_by('created_at'))
+        return list(cls.objects.all())
+
+    @classmethod
+    def get(cls, pk: int):
+        return cls.objects.get(pk=pk)
 
     def __str__(self):
         return self.title
