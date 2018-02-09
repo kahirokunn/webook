@@ -3,11 +3,13 @@
 {% block content %}
 
     <div class="post">
-        <div class="date">
-            {{ post.published_date }}
-        </div>
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaks }}</p>
+        <p>{{ post.thumbnail_url }}</p>
+        <p>{{ post.orderd_page_url }}</p>
+        <p>{{ post.book_url }}</p>
+        <p>{{ post.type }}</p>
     </div>
+
+    <a href="{% url 'books:index' %}">Back to List Page</a>
 
 {% endblock %}
