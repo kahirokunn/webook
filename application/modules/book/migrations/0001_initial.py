@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -14,12 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Book',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('thumbnail_url', models.URLField(blank=True, null=True)),
                 ('orderd_page_url', models.URLField(blank=True, null=True)),
                 ('book_url', models.URLField(blank=True, null=True)),
-                ('type', models.IntegerField(choices=[(1, 'e-book'), (2, 'paper')], default=2)),
+                ('type',
+                 models.IntegerField(choices=[(1, 'e-book'), (2, 'paper')],
+                                     default=2)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],

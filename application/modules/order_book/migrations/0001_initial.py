@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,14 +16,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='OrderBook',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('price', models.IntegerField()),
                 ('ordered_at', models.DateField()),
                 ('cancelled_at', models.DateTimeField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('book', models.ForeignKey(on_delete=False, to='book.Book')),
-                ('user', models.ForeignKey(on_delete=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=False,
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
