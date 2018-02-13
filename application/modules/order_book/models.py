@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from modules.book.models.book import Book
+from submodules import logger
 
 
 class OrderBook(models.Model):
@@ -9,7 +10,7 @@ class OrderBook(models.Model):
     # book 1 対 1
     book = models.ForeignKey(to=Book, on_delete=False)
     price = models.IntegerField()
-    ordered_at = models.DateTimeField()
+    ordered_at = models.DateField()
     cancelled_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -73,7 +74,11 @@ class OrderBook(models.Model):
             return False
 
     def __str__(self):
+        text = '[ title ]: {0} , [ price ]: {1} , [ user_name ]: {2}'.format(
+            self.book.title, self.price, self.user.username)
+
         if self.cancelled_at is None:
-            return self.ordered_at
+            text += ' , [ ordered_at ]: {0}'.format(self.ordered_at)
         else:
-            return ''
+            text += ' , [ cancelled_at ]: {0}'.format(self.cancelled_at)
+        return text

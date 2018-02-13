@@ -12,20 +12,20 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'books:index' %}">Books</a>
+                    <div class="nav-link text-success">JPY Balance: 15000</div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Add My New Book</a>
+                    <a class="nav-link"
+                       href="{% url 'books:index' %}">Bookshelf</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'books:new' %}">Order the book</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">My Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My Ordered History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Balance</a>
+                    <a class="nav-link" href="#">Ordered History</a>
                 </li>
             </ul>
 

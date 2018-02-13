@@ -1,6 +1,11 @@
 @media only screen and (max-width: 699px) {
-  .sm-columns {
-    margin: 10px;
-    width: 100vw;
-  }
+    .sm-columns {
+        margin: 10px;
+        width: 100vw;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: #447e9b;
 }

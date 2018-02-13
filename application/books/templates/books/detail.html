@@ -4,12 +4,13 @@
 
     <div class="post">
         <h1>{{ post.title }}</h1>
-        <p>{{ post.thumbnail_url }}</p>
+        <img src="{{ MEDIA_URL }}{{ post.thumbnail_url }}">
         <p>{{ post.orderd_page_url }}</p>
         <p>{{ post.book_url }}</p>
         <p>{{ post.type }}</p>
     </div>
 
-    <a href="{% url 'books:index' %}">Back to List Page</a>
+    <a href="{% url 'books:index' %}">List</a>
+    <a href="{% url 'books:new' %}">New</a>
 
 {% endblock %}

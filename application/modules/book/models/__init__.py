@@ -1,5 +1,5 @@
 from .book import Book
 
-__all__ = [
+__all__ = (
     'Book',
-]
+)
