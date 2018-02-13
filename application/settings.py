@@ -11,12 +11,19 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 from dotenv import load_dotenv
+import pymysql
+from application.constants import ROOT_NAME
+from django.template import RequestContext
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+APP_ROOT_PATH = BASE_DIR + '/application'
+sys.path.append(APP_ROOT_PATH)
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+pymysql.install_as_MySQLdb()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -31,11 +38,21 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# 認証時に利用するユーザーモデル
+AUTH_USER_MODEL = 'auth.User'
+
 AUTO_LOAD_DOMAINS = [
-    'application.resources',
-    'application.index',
-    'application.accounts',
-    'application.books',
+    'resources',
+    'index',
+    'accounts',
+    'books',
+]
+
+# メモ： moduleがapp名になる
+# 例：'modules.book' => modulesはパッケージ名でbookがmoduleなのでapp名
+AUTO_LOAD_MODULES = [
+    'modules.book',
+    'modules.order_book',
 ]
 
 INSTALLED_APPS = [
@@ -51,6 +68,9 @@ INSTALLED_APPS = [
 for domain in AUTO_LOAD_DOMAINS:
     INSTALLED_APPS.append(domain)
 
+for domain in AUTO_LOAD_MODULES:
+    INSTALLED_APPS.append(domain)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,7 +81,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'application.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -74,6 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resources.templates.context_processors.constants',
             ],
         },
     },
@@ -83,7 +104,7 @@ for domain in AUTO_LOAD_DOMAINS:
     TEMPLATES[0]['DIRS'] = os.path.join(
         BASE_DIR, domain.replace('.', '/') + '/templates')
 
-WSGI_APPLICATION = 'application.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -143,6 +164,11 @@ STATICFILES_DIRS = (
 
 LOGIN_REDIRECT_URL = '/'
 
+
+def get_debug_or_prod() -> str:
+    return 'DEBUG' if DEBUG else 'PRODUCTION'
+
+
 # 置き換えるlogbookに置き換える予定
 LOGGING = {
     'version': 1,
@@ -158,24 +184,24 @@ LOGGING = {
             ])
         },
     },
-    'handlers': {  # ログをどこに出すかの設定
-        'file': {  # どこに出すかの設定に名前をつける `file`という名前をつけている
-            'level': 'DEBUG',  # DEBUG以上のログを取り扱うという意味
+    'handlers': {
+        'file': {
+            'level': get_debug_or_prod(),  # DEBUG以上のログを取り扱うという意味
             'class': 'logging.FileHandler',  # ログを出力するためのクラスを指定
             'filename': os.path.join(BASE_DIR, 'django.log'),  # どこに出すか
-            'formatter': 'all',  # どの出力フォーマットで出すかを名前で指定
+            'formatter': 'all',
         },
-        'console': {  # どこに出すかの設定をもう一つ、こちらの設定には`console`という名前
-            'level': 'DEBUG',
+        'console': {
+            'level': get_debug_or_prod(),
             # こちらは標準出力に出してくれるクラスを指定
             'class': 'logging.StreamHandler',
             'formatter': 'all'
         },
     },
     'loggers': {  # どんなloggerがあるかを設定する
-        'command': {  # commandという名前のloggerを定義
-            'handlers': ['file', 'console'],  # 先述のfile, consoleの設定で出力
-            'level': 'DEBUG',
+        'webook_logger': {  # loggerを定義
+            'handlers': ['file', 'console'],
+            'level': get_debug_or_prod(),
         },
     },
 }

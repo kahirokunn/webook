@@ -4,12 +4,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from ..submodules.helper import Log
+from submodules import logger
+from constants import ROOT_NAME
 
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy(ROOT_NAME)
     template_name = 'registration/signup.html'
     success_messages = [
         'Welcome to Webook app!',
@@ -39,7 +40,7 @@ class SignUpView(generic.CreateView):
         for success_message in self.success_messages:
             messages.success(self.request, success_message)
 
-        Log.info('success to signup.')
+        logger.info('success to signup.')
 
         # 自動ログインする
         user = authenticate(self.request,
@@ -50,5 +51,5 @@ class SignUpView(generic.CreateView):
             login(self.request, user)
             return HttpResponseRedirect(self.get_success_url())
         else:
-            Log.info('failed auto login in after registration.')
+            logger.warning('failed auto login in after registration.')
             return HttpResponseRedirect(reverse_lazy('login'))
