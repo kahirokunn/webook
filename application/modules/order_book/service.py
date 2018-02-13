@@ -1,24 +1,19 @@
 from .models import OrderBook as _OrderBook
 from ..book.service import new_book
+from .components import order_the_book
 
 
 def order_new_one(user, book_params: dict,
                   price: int, ordered_at: str) -> _OrderBook:
     """新しい本を注文する"""
-    book = new_book(book_params, is_save=True)
-    order_book = _OrderBook(user=user, book=book, price=price,
-                            ordered_at=ordered_at)
-    order_book.save()
-    return order_book
+    book = new_book(book_params)
+    return order_the_book(user, book, price, ordered_at)
 
 
 def order_existing_one(
         user, book, price: int, ordered_at: str) -> _OrderBook:
     """登録されてる本を注文する"""
-    order_book = _OrderBook(user=user, book=book, price=price,
-                            ordered_at=ordered_at)
-    order_book.save()
-    return order_book
+    return order_the_book(user, book, price, ordered_at)
 
 
 def cancel_order(pk: int) -> bool:
