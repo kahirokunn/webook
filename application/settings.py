@@ -205,3 +205,7 @@ LOGGING = {
         },
     },
 }
+
+# 画像用
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

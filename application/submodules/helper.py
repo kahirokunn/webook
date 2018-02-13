@@ -30,3 +30,7 @@ def flatten_dict_only_one_element(iterable: Iterable, number: int = 1) -> dict:
                 clone[key] = value[0]
 
     return clone
+
+
+def format_enum_to_choices(enum):
+    return [(unit.value, unit.name) for unit in enum]

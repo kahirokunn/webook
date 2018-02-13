@@ -1,4 +1,6 @@
-BOOK_TYPES = (
-    (1, 'e-book'),
-    (2, 'paper'),
-)
+from enum import IntEnum, auto
+
+
+class BookTypes(IntEnum):
+    paper = auto()
+    ebook = auto()

@@ -1,22 +1,25 @@
 from django.db import models
-from modules.book.constants import BOOK_TYPES
+from modules.book.constants import BookTypes
 from submodules import logger
+from submodules.helper import format_enum_to_choices
 
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    thumbnail_url = models.URLField(null=True, blank=True)
+    thumbnail_url = models.ImageField(upload_to='images',
+                                      null=True, blank=True)
     orderd_page_url = models.URLField(null=True, blank=True)
+    # book_urlは電子本限定。電子本が読めるURLを登録する必要がある。
     book_url = models.URLField(null=True, blank=True)
-    type = models.IntegerField(choices=BOOK_TYPES,
-                               default=BOOK_TYPES[1][0])
+    type = models.IntegerField(choices=format_enum_to_choices(BookTypes),
+                               default=BookTypes.paper)
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @classmethod
     def get_all(cls) -> list:
-        return list(cls.objects.all())
+        return list(cls.objects.all().order_by('-created_at'))
 
     @classmethod
     def get(cls, pk: int):
