@@ -74,7 +74,11 @@ class OrderBook(models.Model):
             return False
 
     def __str__(self):
+        text = '[ title ]: {0} , [ price ]: {1} , [ user_name ]: {2}'.format(
+            self.book.title, self.price, self.user.username)
+
         if self.cancelled_at is None:
-            return str(self.ordered_at)
+            text += ' , [ ordered_at ]: {0}'.format(self.ordered_at)
         else:
-            return str(self.cancelled_at)
+            text += ' , [ cancelled_at ]: {0}'.format(self.cancelled_at)
+        return text
