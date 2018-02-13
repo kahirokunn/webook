@@ -14,7 +14,7 @@ def get(request, pk):
 @require_http_methods('PUT')
 def post(request):
     logger.info(request.POST)
-    return render(request, 'books/create.html')
+    return render(request, 'books/new.html')
 
 
 @valid_request_methods(['GET', 'PUT'])
