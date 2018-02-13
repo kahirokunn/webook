@@ -1,18 +1,14 @@
 from django.db import models
-
-_TYPE_CHOICES = (
-    (1, 'e-book'),
-    (2, 'paper'),
-)
+from modules.book.constants import BOOK_TYPES
 
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    thumbnail_url = models.TextField(null=True, blank=True)
-    orderd_page_url = models.TextField(null=True, blank=True)
-    book_url = models.TextField(null=True, blank=True)
-    type = models.IntegerField(choices=_TYPE_CHOICES,
-                               default=_TYPE_CHOICES[1][0])
+    thumbnail_url = models.URLField(null=True, blank=True)
+    orderd_page_url = models.URLField(null=True, blank=True)
+    book_url = models.URLField(null=True, blank=True)
+    type = models.IntegerField(choices=BOOK_TYPES,
+                               default=BOOK_TYPES[1][0])
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
