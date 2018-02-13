@@ -1,5 +1,6 @@
 from django.db import models
 from modules.book.constants import BOOK_TYPES
+from submodules import logger
 
 
 class Book(models.Model):
@@ -20,6 +21,13 @@ class Book(models.Model):
     @classmethod
     def get(cls, pk: int):
         return cls.objects.get(pk=pk)
+
+    @classmethod
+    def get_all_field_names(cls) -> list:
+        field_names = [str(field_name)
+                       for field_name in cls._meta.get_fields()
+                       if '<' not in str(field_name)]
+        return list(map(lambda x: x.split('.')[-1], field_names))
 
     def __str__(self):
         return self.title

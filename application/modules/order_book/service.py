@@ -1,38 +1,41 @@
-from .models import OrderBook
+from .models import OrderBook as _OrderBook
+from ..book.service import new_book
 
 
-class Service:
-    """購入発注書サービス"""
+def order_new_one(user, book_params: dict,
+                  price: int, ordered_at: str) -> _OrderBook:
+    """新しい本を注文する"""
+    book = new_book(book_params, is_save=True)
+    order_book = _OrderBook(user=user, book=book, price=price,
+                            ordered_at=ordered_at)
+    order_book.save()
+    return order_book
 
-    @classmethod
-    def create_order(cls, user, book, price, ordered_at) -> OrderBook:
-        """注文する"""
-        order_book = OrderBook(user=user, book=book, price=price,
-                               ordered_at=ordered_at)
-        order_book.save()
-        return order_book
 
-    @classmethod
-    def cancel_order(cls, pk: int) -> bool:
-        """注文の取り消し"""
-        return OrderBook.cancel_order_by_id(pk=pk)
+def order_existing_one(
+        user, book, price: int, ordered_at: str) -> _OrderBook:
+    """登録されてる本を注文する"""
+    order_book = _OrderBook(user=user, book=book, price=price,
+                            ordered_at=ordered_at)
+    order_book.save()
+    return order_book
 
-    @classmethod
-    def get_order_book(cls) -> OrderBook:
-        """購入発注書の取得"""
-        return OrderBook()
 
-    @classmethod
-    def get_order_book_by_user(cls, user) -> list:
-        """指定したユーザーの購入発注書の取得"""
-        return OrderBook.get_list_by_user(user=user)
+def cancel_order(pk: int) -> bool:
+    """注文を取り消す"""
+    return _OrderBook.cancel_order_by_id(pk=pk)
 
-    @classmethod
-    def is_exists_record_by_user(cls, user) -> bool:
-        """指定したユーザーは購入記録があるかどうか"""
-        return OrderBook.has_book_by_user(user=user)
 
-    @classmethod
-    def get_order_book_by_book(cls, book: OrderBook | int) -> list:
-        """指定した本の購入注文書の取得"""
-        return OrderBook.get_list_by_book(book=book)
+def get_order_book_by_user(user) -> list:
+    """指定したユーザーの購入発注書の取得"""
+    return _OrderBook.get_list_by_user(user=user)
+
+
+def is_exists_record_by_user(user) -> bool:
+    """指定したユーザーは購入記録があるかどうか"""
+    return _OrderBook.has_book_by_user(user=user)
+
+
+def get_order_book_by_book(book) -> list:
+    """指定した本の購入注文書の取得"""
+    return _OrderBook.get_list_by_book(book=book)
