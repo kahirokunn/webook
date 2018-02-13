@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, generate, detail
+from .views import index, new, detail
 
 app_name = 'books'
 
@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:pk>', detail.routing_by_request_method, name='detail'),
 
     # 新規登録画面
-    path('generate', generate.routing_by_request_method, name='generate'),
+    path('new', new.routing_by_request_method, name='new'),
 ]

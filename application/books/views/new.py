@@ -6,13 +6,13 @@ from submodules.decorators import valid_request_methods
 
 @require_http_methods('GET')
 def get(request):
-    logger.debug(request.GET)
+    logger.info(request.GET)
     return render(request, 'books/index.html')
 
 
 @require_http_methods('POST')
 def post(request):
-    logger.debug(request.POST)
+    logger.info(request.POST)
     return render(request, 'books/create.html')
 
 
