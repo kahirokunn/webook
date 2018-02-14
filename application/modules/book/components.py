@@ -37,12 +37,12 @@ def generate_book(params: dict) -> Book:
     return book
 
 
-def add_category_by_name_if_not_exists(category_name: str) -> Category:
+def add_category_by_name_if_not_exists(category_name: str) -> bool:
     """カテゴリがなかったら追加する"""
     if not Category.is_exists_by_name(category_name):
         category = Category()
         category.name = category_name
         category.save()
-        return category
+        return True
     else:
-        return Category.get(category_name)
+        return False

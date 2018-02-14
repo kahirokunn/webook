@@ -26,25 +26,19 @@
                 <div class="container row span-12">
                     <div class="col-lg-2 col-sm-12"
                          style="padding-left: 0">
-                        <a class="btn btn-primary btn-lg" href="{% url 'accounts:signup' %}" role="button">
+                        <a class="btn btn-primary btn-lg"
+                           href="{% url 'accounts:signup' %}" role="button">
                             Register »
                         </a>
                     </div>
                     <div class="sm-columns"></div>
                     <div class="col-lg-2 col-sm-12" style="padding-left: 0">
-                        <a class="btn btn-primary btn-lg" href="{% url 'accounts:login' %}" role="button">
+                        <a class="btn btn-primary btn-lg"
+                           href="{% url 'accounts:login' %}" role="button">
                             Login »
                         </a>
                     </div>
                 </div>
-            {% endif %}
-
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
             {% endif %}
 
         </div>

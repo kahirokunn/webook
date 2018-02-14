@@ -8,6 +8,9 @@
         <p>{{ post.orderd_page_url }}</p>
         <p>{{ post.book_url }}</p>
         <p>{{ post.type }}</p>
+        {% for category in categories %}
+            <p>{{ category }}</p>
+        {% endfor %}
     </div>
 
     <a href="{% url 'books:index' %}">List</a>

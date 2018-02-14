@@ -29,6 +29,7 @@ def new_category(category_name: str) -> bool:
     """
     新しいカテゴリを作成する
     重複する場合は作成しない
+
+    :return created=True is_exists=False
     """
-    add_category_by_name_if_not_exists(category_name)
-    return True
+    return add_category_by_name_if_not_exists(category_name)

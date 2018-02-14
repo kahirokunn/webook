@@ -1,26 +1,7 @@
 {% extends 'layouts/base.html' %}
-{% load bootstrap %}
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-8 col-sm-12">
-                <br>
-
-                <form role="form" method="post" enctype="multipart/form-data">
-                    <legend>Order the new book</legend>
-                    {% csrf_token %}
-                    {{ form|bootstrap }}
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
+    {% include 'layouts/forms/default-form.html' with title='Register the new book'%}
 
 {% endblock %}

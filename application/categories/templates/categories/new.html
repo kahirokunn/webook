@@ -1,26 +1,7 @@
 {% extends 'layouts/base.html' %}
-{% load bootstrap %}
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-8 col-sm-12">
-                <br>
-                <h1>Register New Category</h1>
-
-                <form role="form" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form|bootstrap }}
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
+    {% include 'layouts/forms/default-form.html' with title='Register the new category'%}
 
 {% endblock %}
