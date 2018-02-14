@@ -1,15 +1,17 @@
 from django.urls import path
-from books.views.book import index, new, detail
+from submodules.helper import ViewRouter
 
 app_name = 'books'
 
+route = ViewRouter('application.books.views')
+
 urlpatterns = [
     # 一覧画面
-    path('', index.routing_by_request_method, name='index'),
+    path('', route.index, name='index'),
 
     # 詳細画面
-    path('<int:pk>', detail.routing_by_request_method, name='detail'),
+    path('<int:pk>', route.detail, name='detail'),
 
     # 新規登録画面
-    path('new', new.routing_by_request_method, name='new'),
+    path('new', route.new, name='new'),
 ]

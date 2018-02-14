@@ -13,7 +13,7 @@ class Book(models.Model):
     book_url = models.URLField(null=True, blank=True)
     type = models.IntegerField(choices=format_enum_to_choices(BookTypes),
                                default=BookTypes.paper)
-    categories = models.ManyToManyField('Category')
+    categories = models.ManyToManyField('Category', blank=True)
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

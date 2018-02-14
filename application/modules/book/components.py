@@ -1,6 +1,5 @@
 from .models import Book, Category
-from submodules.helper import \
-    filter_dict, is_iterable, be_list_or_return, has_str
+from submodules.helper import filter_dict, be_list_or_return, has_str
 from .constants import BookTypes
 
 

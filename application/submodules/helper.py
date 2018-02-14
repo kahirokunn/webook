@@ -1,5 +1,7 @@
-from submodules.decorators import valid_attr_or_failed
+from submodules.decorators import valid_attr_or_failed, valid_request_methods
 from typing import Iterable
+from importlib import import_module
+from submodules import logger
 
 
 @valid_attr_or_failed('urlpatterns', 'app_name')
@@ -48,3 +50,26 @@ def be_list_or_return(obj):
     if is_iterable(obj):
         return obj
     return [obj]
+
+
+def _call(module):
+    """requestメソッドに対応するメソッドを実行"""
+
+    def callback(request, *args, **kwargs):
+        call_func_name = request.method.lower()
+        return getattr(module, call_func_name)(request, *args, **kwargs)
+
+    return callback
+
+
+class ViewRouter:
+    """不思議なルーター、お一つどうぞ"""
+
+    def __init__(self, view_package_path: str):
+        self.package_path = view_package_path
+
+    def __getattr__(self, module_name: str):
+        path = '{0}.{1}'.format(self.package_path, module_name)
+        module = import_module(path)
+        logger.info(path)
+        return _call(module)
