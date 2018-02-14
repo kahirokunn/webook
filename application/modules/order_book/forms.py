@@ -1,6 +1,6 @@
 from django.forms import DateField, IntegerField, ModelForm, Media
 from .models import OrderBook
-from ..book.forms import NewForm as BookForm
+from ..book.forms import NewBook
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.admin.options import ModelAdmin
 from settings import DEBUG
@@ -25,12 +25,12 @@ def admin_datepicker_media():
                  css={'all': ['admin/css/%s' % url for url in css]})
 
 
-class NewForm(BookForm):
+class NewOrder(NewBook):
     price = IntegerField()
     ordered_at = DateField(widget=AdminDateWidget)
 
-    class Meta(BookForm.Meta):
-        fields = BookForm.Meta.fields + ('price', 'ordered_at')
+    class Meta(NewBook.Meta):
+        fields = NewBook.Meta.fields + ('price', 'ordered_at')
 
     @property
     def media(self):

@@ -1,8 +1,8 @@
 from django.forms import ModelForm, CharField
-from .models import Book
+from .models import Book, Category
 
 
-class NewForm(ModelForm):
+class NewBook(ModelForm):
     class Meta:
         model = Book
         fields = ('title',
@@ -11,3 +11,9 @@ class NewForm(ModelForm):
                   'book_url',
                   'type',
                   'categories',)
+
+
+class NewCategory(ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)

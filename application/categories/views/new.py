@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_GET, require_POST
-from modules.order_book.forms import NewOrder
+from modules.book.forms import NewCategory
 from modules.order_book.service import order_new_one
 from submodules.helper import flatten_dict_only_one_element as flatten
 
 
 @require_GET
 def get(request):
-    return render(request, 'books/new.html', {'form': NewOrder})
+    return render(request, 'categories/new.html', {'form': NewCategory})
 
 
 @require_POST

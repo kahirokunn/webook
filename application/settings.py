@@ -46,6 +46,7 @@ AUTO_LOAD_DOMAINS = [
     'index',
     'accounts',
     'books',
+    'categories',
 ]
 
 # メモ： moduleがapp名になる

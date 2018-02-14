@@ -8,9 +8,9 @@
 
             <div class="col-lg-8 col-sm-12">
                 <br>
+                <h1>Register New Category</h1>
 
                 <form role="form" method="post" enctype="multipart/form-data">
-                    <legend>Order the new book</legend>
                     {% csrf_token %}
                     {{ form|bootstrap }}
                     <div class="form-group">
