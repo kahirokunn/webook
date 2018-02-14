@@ -1,1 +1,1 @@
-REQUEST_METHOD_LIST = ['GET', 'POST', 'PUT', 'DELETE']
+REQUEST_METHOD_LIST = ['Get', 'Post', 'Put', 'Delete']

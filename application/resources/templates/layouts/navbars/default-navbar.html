@@ -15,21 +15,31 @@
                     <div class="nav-link text-success">JPY Balance: 15000</div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'books:index' %}">Bookshelf</a>
-                </li>
+                    <a class="nav-link" href="{% url 'books:index' %}">
+                        Bookshelf</a></li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'books:new' %}">Order the book</a>
-                </li>
+                    <a class="nav-link" href="{% url 'books:new' %}">
+                        New book</a></li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My Books</a>
-                </li>
+                    <a class="nav-link" href="{% url 'categories:new' %}">
+                        New category</a></li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ordered History</a>
-                </li>
+                    <a class="nav-link" href="#">
+                        My Books</a></li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Ordered History</a></li>
+
             </ul>
 
-            <form class="form-inline mt-2 mt-md-0" style="margin-bottom: 0">
+            <form action="{% url 'books:index' %}"
+                  method="get"
+                  class="form-inline mt-2 mt-md-0"
+                  style="margin-bottom: 0">
                 <input class="form-control mr-sm-2" type="text"
                        placeholder="Keywords..." aria-label="Keywords...">
                 <button class="btn btn-outline-success my-2 my-sm-0"

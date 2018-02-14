@@ -1,7 +1,7 @@
 from modules.book.models import Book as _Book
-from submodules.helper import filter_dict
-from submodules import logger
 from .constants import BookTypes
+from .components import get_book_fields, generate_book, \
+    add_category_by_name_if_not_exists
 
 
 def get_books() -> list:
@@ -14,19 +14,22 @@ def get_book(pk: int):
     return _Book.get(pk)
 
 
-def new_book(params: dict, is_save=False):
+def new_book(params: dict) -> _Book:
     """新しい本を作成する"""
-    params = filter_dict(keys=get_book_fields(), dictionary=params)
-    logger.info(params)
-    # book_urlは電子本限定。電子本が読めるURLを登録する必要がある。
-    if params['type'] is not int(BookTypes.ebook):
-        del params['book_url']
-    book = _Book(**params)
-    if is_save:
-        book.save()
-    return book
+    return generate_book(params)
 
 
-def get_book_fields() -> list:
-    """本のフィールドを全て取得する"""
-    return _Book.get_all_field_names()
+def add_category_to_book(book, category_id: int) -> bool:
+    """本にカテゴリを追加する"""
+    _Book(book).category_set.add(category_id)
+    return True
+
+
+def new_category(category_name: str) -> bool:
+    """
+    新しいカテゴリを作成する
+    重複する場合は作成しない
+
+    :return created=True is_exists=False
+    """
+    return add_category_by_name_if_not_exists(category_name)

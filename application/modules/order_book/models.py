@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from modules.book.models.book import Book
+from modules.book.models import Book
 from submodules import logger
 
 
