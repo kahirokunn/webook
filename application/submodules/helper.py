@@ -34,3 +34,17 @@ def flatten_dict_only_one_element(iterable: Iterable, number: int = 1) -> dict:
 
 def format_enum_to_choices(enum):
     return [(unit.value, unit.name) for unit in enum]
+
+
+def is_iterable(obj):
+    return hasattr(obj, '__iter__')
+
+
+def has_str(obj):
+    return hasattr(obj, '__str__')
+
+
+def be_list_or_return(obj):
+    if is_iterable(obj):
+        return obj
+    return [obj]

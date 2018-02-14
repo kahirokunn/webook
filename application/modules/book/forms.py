@@ -1,4 +1,4 @@
-from django.forms import URLField, ModelForm
+from django.forms import ModelForm, CharField
 from .models import Book
 
 
@@ -9,4 +9,5 @@ class NewForm(ModelForm):
                   'thumbnail_url',
                   'orderd_page_url',
                   'book_url',
-                  'type')
+                  'type',
+                  'categories',)
