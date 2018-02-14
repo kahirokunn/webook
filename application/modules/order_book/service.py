@@ -1,6 +1,7 @@
 from .models import OrderBook as _OrderBook
 from ..book.service import new_book
-from .components import order_the_book
+from .components import order_the_book, get_order_book_by_user
+from submodules import logger
 
 
 def order_new_one(user, book_params: dict,
@@ -21,16 +22,16 @@ def cancel_order(pk: int) -> bool:
     return _OrderBook.cancel_order_by_id(pk=pk)
 
 
-def get_order_book_by_user(user) -> list:
-    """指定したユーザーの購入発注書の取得"""
-    return _OrderBook.get_list_by_user(user=user)
+def get_bought_sum_price(user) -> int:
+    """ユーザーが購入した総額を取得する(jpy)"""
+    orderbook = get_order_book_by_user(user)
+
+    sum_price = 0
+    for record in orderbook:
+        sum_price += record.price
+    return sum_price
 
 
 def is_exists_record_by_user(user) -> bool:
     """指定したユーザーは購入記録があるかどうか"""
     return _OrderBook.has_book_by_user(user=user)
-
-
-def get_order_book_by_book(book) -> list:
-    """指定した本の購入注文書の取得"""
-    return _OrderBook.get_list_by_book(book=book)
