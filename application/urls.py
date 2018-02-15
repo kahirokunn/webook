@@ -9,6 +9,7 @@ from accounts import urls as account_urls
 from books import urls as book_urls
 from index import urls as index_urls
 from categories import urls as category_urls
+from django.views.i18n import null_javascript_catalog
 
 urlpatterns = [
     url('', get_urls(index_urls)),
@@ -16,7 +17,10 @@ urlpatterns = [
     path('accounts/', get_urls(account_urls)),
     path('books/', get_urls(book_urls)),
     path('categories/', get_urls(category_urls)),
+
+    # assets
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT,
     }),
+    url('i18n_js_catalog', null_javascript_catalog, name='i18n_js_catalog'),
 ]
