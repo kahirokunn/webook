@@ -1,13 +1,11 @@
-from django.forms import DateField, IntegerField, ModelForm, Media
-from .models import OrderBook
-from ..book.forms import NewBook
+from django import forms as django_forms
+from ..book import forms as book_form
 from django.contrib.admin.widgets import AdminDateWidget
-from django.contrib.admin.options import ModelAdmin
-from settings import DEBUG
+import settings
 
 
 def admin_datepicker_media():
-    extra = '' if DEBUG else '.min'
+    extra = '' if settings.DEBUG else '.min'
     css = ('forms.css',)
     js = (
         'vendor/jquery/jquery%s.js' % extra,
@@ -21,16 +19,17 @@ def admin_datepicker_media():
         'calendar.js',
         'admin/DateTimeShortcuts.js',
     )
-    return Media(js=['admin/js/%s' % url for url in js],
-                 css={'all': ['admin/css/%s' % url for url in css]})
+    return django_forms.Media(
+        js=['admin/js/%s' % url for url in js],
+        css={'all': ['admin/css/%s' % url for url in css]})
 
 
-class NewOrder(NewBook):
-    price = IntegerField()
-    ordered_at = DateField(widget=AdminDateWidget)
+class NewOrder(book_form.NewBook):
+    price = django_forms.IntegerField()
+    ordered_at = django_forms.DateField(widget=AdminDateWidget)
 
-    class Meta(NewBook.Meta):
-        fields = NewBook.Meta.fields + ('price', 'ordered_at')
+    class Meta(book_form.NewBook.Meta):
+        fields = book_form.NewBook.Meta.fields + ('price', 'ordered_at')
 
     @property
     def media(self):

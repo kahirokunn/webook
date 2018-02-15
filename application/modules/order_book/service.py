@@ -1,20 +1,19 @@
 from .models import OrderBook as _OrderBook
-from ..book.service import new_book
-from .components import order_the_book, get_order_book_by_user
-from submodules import logger
+from ..book import service as book_sv
+from . import components as order_book_cmpt
 
 
 def order_new_one(user, book_params: dict,
                   price: int, ordered_at: str) -> _OrderBook:
     """新しい本を注文する"""
-    book = new_book(book_params)
-    return order_the_book(user, book, price, ordered_at)
+    book = book_sv.new_book(book_params)
+    return order_book_cmpt.order_the_book(user, book, price, ordered_at)
 
 
 def order_existing_one(
         user, book, price: int, ordered_at: str) -> _OrderBook:
     """登録されてる本を注文する"""
-    return order_the_book(user, book, price, ordered_at)
+    return order_book_cmpt.order_the_book(user, book, price, ordered_at)
 
 
 def cancel_order(pk: int) -> bool:
@@ -24,7 +23,7 @@ def cancel_order(pk: int) -> bool:
 
 def get_bought_sum_price(user) -> int:
     """ユーザーが購入した総額を取得する(jpy)"""
-    orderbook = get_order_book_by_user(user)
+    orderbook = order_book_cmpt.get_order_book_by_user(user)
 
     sum_price = 0
     for record in orderbook:

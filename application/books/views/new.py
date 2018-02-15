@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_GET, require_POST
 from modules.order_book.forms import NewOrder
-from modules.order_book.service import order_new_one
+from modules.order_book import service as order_book_sv
 from submodules.helper import flatten_dict_only_one_element as flatten
 
 
@@ -14,6 +14,8 @@ def get(request):
 def post(request):
     """新たらしい本を購入する"""
     data = flatten(request.POST)
-    orderbook = order_new_one(request.user, data, int(data['price']),
-                              data['ordered_at'])
+    orderbook = order_book_sv.order_new_one(request.user,
+                                            data,
+                                            int(data['price']),
+                                            data['ordered_at'])
     return redirect('books:detail', pk=orderbook.book.pk)

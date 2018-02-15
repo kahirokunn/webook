@@ -1,7 +1,6 @@
 from constants import ROOT_NAME
 from settings import MEDIA_URL
-from modules.wallet.service import get_user_balance
-from submodules import logger
+from modules.wallet import service as wallet_sv
 
 
 def constants(request):
@@ -10,7 +9,7 @@ def constants(request):
     variable = {
         'ROOT_NAME': ROOT_NAME,
         'MEDIA_URL': MEDIA_URL,
-        'BALANCE': get_user_balance(request.user),
+        'BALANCE': wallet_sv.get_user_balance(request.user),
     }
 
     return variable

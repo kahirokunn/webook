@@ -1,7 +1,6 @@
-from modules.book.models import Book as _Book
+from .models import Book as _Book
 from .constants import BookTypes
-from .components import get_book_fields, generate_book, \
-    add_category_by_name_if_not_exists
+from . import components as book_cmpt
 
 
 def get_books() -> list:
@@ -16,7 +15,7 @@ def get_book(pk: int):
 
 def new_book(params: dict) -> _Book:
     """新しい本を作成する"""
-    return generate_book(params)
+    return book_cmpt.generate_book(params)
 
 
 def add_category_to_book(book, category_id: int) -> bool:
@@ -32,4 +31,4 @@ def new_category(category_name: str) -> bool:
 
     :return created=True is_exists=False
     """
-    return add_category_by_name_if_not_exists(category_name)
+    return book_cmpt.add_category_by_name_if_not_exists(category_name)

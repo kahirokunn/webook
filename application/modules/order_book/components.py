@@ -1,5 +1,4 @@
 from .models import OrderBook
-from ..book.service import new_book
 
 
 def order_the_book(
