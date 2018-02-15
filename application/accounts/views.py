@@ -13,9 +13,9 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy(ROOT_NAME)
     template_name = 'registration/signup.html'
     success_messages = [
-        'Welcome to Webook app!',
-        'It succeeded in user registration!',
-        'Let\'s immediately read the book together now!',
+        'Welcome to Webook app! \
+        It succeeded in user registration! \
+        Let\'s immediately read the book together now!',
     ]
 
     # バリデーションを通った時に実行されるメソッド

@@ -55,7 +55,7 @@ AUTO_LOAD_DOMAINS = [
 # 例：'modules.book' => modulesはパッケージ名でbookがmoduleなのでapp名
 AUTO_LOAD_MODULES = [
     'modules.book',
-    'modules.order_book',
+    'modules.orderbook',
 ]
 
 INSTALLED_APPS = [

@@ -6,8 +6,11 @@ $(function () {
     $(window).on('resize', reviseMargin);
 
     function reviseMargin() {
-        $('body').css({
-            'margin-top': $('header > nav')[0].offsetHeight + 'px'
-        });
+        const header_dom = $('header > nav');
+        if (header_dom.length > 0) {
+            $('body').css({
+                'margin-top': header_dom[0].offsetHeight + 'px'
+            });
+        }
     }
 });
