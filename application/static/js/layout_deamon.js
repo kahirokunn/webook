@@ -1,5 +1,8 @@
 $(function () {
     reviseMargin();
+    $('main').css({
+        'display': 'block'
+    });
     $(window).on('resize', reviseMargin);
 
     function reviseMargin() {
