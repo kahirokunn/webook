@@ -10,6 +10,11 @@
             <form role="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|bootstrap }}
+
+                {% for name, value in hidden.items %}
+                    <input type="hidden" name="{{ name }}" value="{{ value }}">
+                {% endfor %}
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit
                     </button>

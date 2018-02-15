@@ -17,16 +17,20 @@ class Review(models.Model):
         return list(cls.objects.all().order_by('-created_at'))
 
     @classmethod
-    def get_by_user(cls, user) -> list:
-        return list(cls.objects.filter(user=user).order_by('-created_at'))
+    def get_by_user_with_book(cls, user, book):
+        return cls.objects.get(user=user, book=book)
+
+    @classmethod
+    def get_by_book(cls, book) -> list:
+        return list(cls.objects.filter(book=book).order_by('-created_at'))
 
     @classmethod
     def get_by_id(cls, pk: int):
         return cls.objects.get(pk=pk)
 
     @classmethod
-    def is_exists_by_user(cls, user) -> bool:
-        return cls.objects.get(user=user).exists()
+    def is_exists(cls, user, book) -> bool:
+        return cls.objects.filter(user=user, book=book).exists()
 
     def __str__(self):
         return self.name

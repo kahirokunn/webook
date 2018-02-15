@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 from django.template import RequestContext
 from application.constants import ROOT_NAME
 from application.submodules import logger
+from django.urls import reverse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +50,7 @@ AUTO_LOAD_DOMAINS = [
     'accounts',
     'books',
     'categories',
+    'reviews',
 ]
 
 # メモ： moduleがapp名になる
@@ -165,8 +167,6 @@ STATICFILES_DIRS = (
     os.path.join(APP_ROOT_PATH, 'static'),
 )
 
-LOGIN_REDIRECT_URL = '/'
-
 
 def get_debug_or_prod() -> str:
     return 'DEBUG' if DEBUG else 'PRODUCTION'
@@ -212,3 +212,6 @@ LOGGING = {
 # 画像用
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = '/books'
+LOGOUT_REDIRECT_URL = '/accounts/login'

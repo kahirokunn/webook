@@ -13,6 +13,27 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'books:new' %}">Buy More</a>
+    <a href="{% url 'books:buy' pk=post.pk%}">Buy More</a>
+    {% if my_review is None %}
+        <a href="{% url 'reviews:new' book_pk=post.pk %}">Post Review</a>
+    {% endif %}
+
+    {% if my_review %}
+        <div>
+            <span>username: {{ my_review.user.username }}</span>
+            <div>{{ my_review.text }}</div>
+            <div>{{ my_review.created_at }}</div>
+            <br>
+        </div>
+    {% endif %}
+
+    {% for review in reviews %}
+        <div>
+            <span>username: {{ review.user.username }}</span>
+            <div>{{ review.text }}</div>
+            <div>{{ review.created_at }}</div>
+            <br>
+        </div>
+    {% endfor %}
 
 {% endblock %}

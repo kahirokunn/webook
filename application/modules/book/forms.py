@@ -22,6 +22,5 @@ class NewCategory(ModelForm):
 class NewReview(ModelForm):
     class Meta:
         model = book_model.Review
-        fields = ('book',
-                  'text',
+        fields = ('text',
                   'star',)

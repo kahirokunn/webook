@@ -42,21 +42,6 @@ class OrderBook(models.Model):
                                   cancelled_at__isnull=True).exists()
 
     @classmethod
-    def get_count(cls) -> int:
-        """全ての本の数を取得する"""
-        return cls.objects.filter(cancelled_at__isnull=True).count()
-
-    @classmethod
-    def get_count_by_user(cls, user) -> int:
-        """特定のユーザーが持っている本の数を取得する"""
-        return cls.objects.filter(user=user, cancelled_at__isnull=True).count()
-
-    @classmethod
-    def get_count_by_book(cls, book) -> int:
-        """特定の本の注文数を取得する"""
-        return cls.objects.filter(book=book, cancelled_at__isnull=True).count()
-
-    @classmethod
     def get_by_id(cls, pk: int):
         try:
             return cls.objects.get(pk=pk)
