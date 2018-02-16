@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <html>
 <head>
@@ -16,14 +16,15 @@
     <link rel='stylesheet'
           href='{% static 'css/bootstrap/sticky-footer-navbar.css' %}'>
 
-
     {{ form.media.css }}
 </head>
 <body>
-{% include 'layouts/navbars/default-navbar.html' %}
+{% if user.is_authenticated %}
+    {% include 'layouts/navbars/default-navbar.html' %}
+{% endif %}
 {% include 'layouts/messages/pretty-message.html' %}
 
-<main role='main'>
+<main role='main' style="display: none">
     {% block content %}
     {% endblock %}
 </main>
@@ -31,8 +32,7 @@
 {% include 'layouts/footer/default-footer.html' %}
 
 
-<script type='text/javascript'>window.__admin_media_prefix__ = '{% static 'admin' %}'</script>
-<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+<script type="text/javascript" src='{% url 'i18n_js_catalog' %}'></script>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
         integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
         crossorigin='anonymous'></script>

@@ -12,14 +12,16 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import sys
-from dotenv import load_dotenv
 import pymysql
-from application.constants import ROOT_NAME
+from dotenv import load_dotenv
 from django.template import RequestContext
+from application.constants import ROOT_NAME
+from application.submodules import logger
+from django.urls import reverse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APP_ROOT_PATH = BASE_DIR + '/application'
+APP_ROOT_PATH = os.path.join(BASE_DIR, 'application')
 sys.path.append(APP_ROOT_PATH)
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -34,7 +36,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.getenv('DEBUG', '1')))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -42,18 +44,23 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'auth.User'
 
 AUTO_LOAD_DOMAINS = [
+    'application',
     'resources',
     'index',
     'accounts',
     'books',
     'categories',
+    'reviews',
+    'memos',
 ]
 
 # メモ： moduleがapp名になる
 # 例：'modules.book' => modulesはパッケージ名でbookがmoduleなのでapp名
 AUTO_LOAD_MODULES = [
     'modules.book',
-    'modules.order_book',
+    'modules.orderbook',
+    'modules.review',
+    'modules.memo',
 ]
 
 INSTALLED_APPS = [
@@ -157,13 +164,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/application/static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'application/static'),
+    os.path.join(APP_ROOT_PATH, 'static'),
 )
-
-LOGIN_REDIRECT_URL = '/'
 
 
 def get_debug_or_prod() -> str:
@@ -210,3 +215,6 @@ LOGGING = {
 # 画像用
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = '/books'
+LOGOUT_REDIRECT_URL = '/accounts/login'

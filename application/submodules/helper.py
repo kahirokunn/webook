@@ -1,7 +1,6 @@
 from submodules.decorators import valid_attr_or_failed, valid_request_methods
 from typing import Iterable
 from importlib import import_module
-from submodules import logger
 
 
 @valid_attr_or_failed('urlpatterns', 'app_name')
@@ -64,7 +63,6 @@ class ViewRouter:
     def __getattr__(self, module_name: str):
         path = '{0}.{1}'.format(self.package_path, module_name)
         module = import_module(path)
-        logger.info(path)
         return self._call(module)
 
     @classmethod

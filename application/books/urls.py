@@ -14,4 +14,7 @@ urlpatterns = [
 
     # 新規登録画面
     path('new', route.new, name='new'),
+
+    # 新規登録画面
+    path('<int:pk>/buy', route.buy, name='buy'),
 ]

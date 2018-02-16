@@ -18,43 +18,28 @@ class OrderBook(models.Model):
     @classmethod
     def get_all(cls) -> list:
         """全てを取得する"""
-        return cls.objects.all()
+        return [cls.objects.all()]
 
     @classmethod
     def get_cancelled_all(cls) -> list:
         """キャンセルされた全てを取得する"""
-        return cls.objects.filter(cancelled_at__isnull=False)
+        return list(cls.objects.filter(cancelled_at__isnull=False))
 
     @classmethod
     def get_list_by_user(cls, user) -> list:
         """特定ユーザーに紐づくエンティティを取得する"""
-        return cls.objects.filter(user=user, cancelled_at__isnull=True)
+        return list(cls.objects.filter(user=user, cancelled_at__isnull=True))
 
     @classmethod
     def get_list_by_book(cls, book) -> list:
         """特定の本に紐づくエンティティを取得する"""
-        return cls.objects.filter(book=book, cancelled_at__isnull=True)
+        return list(cls.objects.filter(book=book, cancelled_at__isnull=True))
 
     @classmethod
     def has_book_by_user(cls, user) -> bool:
         """特定のユーザーが本をもっているか確認する"""
         return cls.objects.filter(user=user,
                                   cancelled_at__isnull=True).exists()
-
-    @classmethod
-    def get_count(cls) -> int:
-        """全ての本の数を取得する"""
-        return cls.objects.filter(cancelled_at__isnull=True).count()
-
-    @classmethod
-    def get_count_by_user(cls, user) -> int:
-        """特定のユーザーが持っている本の数を取得する"""
-        return cls.objects.filter(user=user, cancelled_at__isnull=True).count()
-
-    @classmethod
-    def get_count_by_book(cls, book) -> int:
-        """特定の本の注文数を取得する"""
-        return cls.objects.filter(book=book, cancelled_at__isnull=True).count()
 
     @classmethod
     def get_by_id(cls, pk: int):

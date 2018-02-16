@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,9 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/bootstrap/sticky-footer-navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="{% static 'css/accounts-base.css' %}" rel="stylesheet">
+    {{ form.media.css }}
 
     <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %}
         Webook
@@ -22,7 +24,9 @@
 <body>
 
 <div class="container">
-    {% include 'header.html' %}
+    {% if user.is_authenticated %}
+        {% include 'header.html' %}
+    {% endif %}
     <div class="content">
         {% block content %}{% endblock %}
     </div>
@@ -37,5 +41,6 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+{{ form.media.js }}
 </body>
 </html>

@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
-from modules.book.service import get_books
+from django.views.decorators.http import require_GET
+from modules.book import service as book_sv
+from ..urls import app_name
 
 
-@require_http_methods('GET')
+@require_GET
 def get(request):
-    return render(request, 'books/index.html', {'posts': get_books()})
+    return render(request, app_name + '/index.html',
+                  {'posts': book_sv.get_books()})
