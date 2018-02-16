@@ -5,8 +5,9 @@ from django.views import generic
 from django.contrib import messages
 from submodules import logger
 from constants import ROOT_NAME
-from modules.profile.forms import NewUserForm
+from modules.profile.forms import NewUserForm, UpdateUserForm
 from modules.profile import service as profile_sv
+from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.models import User
 from submodules.helper import simple_upload_file, \
     flatten_dict_only_one_element as flatten
