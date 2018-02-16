@@ -19,9 +19,11 @@
     {% endif %}
     <a href="{% url 'memos:new' book_pk=post.pk %}">Post Memo</a>
 
+    <h3>レビュー</h3>
     {% if my_review %}
         <div>
             <span>username: {{ my_review.user.username }}</span>
+            <div>{{ my_review.star }}</div>
             <div>{{ my_review.text }}</div>
             <div>{{ my_review.created_at }}</div>
             <br>
@@ -31,8 +33,28 @@
     {% for review in reviews %}
         <div>
             <span>username: {{ review.user.username }}</span>
+            <div>{{ review.star }}</div>
             <div>{{ review.text }}</div>
             <div>{{ review.created_at }}</div>
+            <br>
+        </div>
+    {% endfor %}
+
+    <h3>メモ</h3>
+    {% for my_memo in my_memos %}
+        <div>
+            <span>username: {{ my_memo.user.username }}</span>
+            <div>{{ my_memo.text }}</div>
+            <div>{{ my_memo.created_at }}</div>
+            <br>
+        </div>
+    {% endfor %}
+
+    {% for memo in memos %}
+        <div>
+            <span>username: {{ memo.user.username }}</span>
+            <div>{{ memo.text }}</div>
+            <div>{{ memo.created_at }}</div>
             <br>
         </div>
     {% endfor %}

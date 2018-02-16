@@ -11,10 +11,8 @@ def get_reviews_separate_user(user, book) -> dict:
             del reviews[i]
             break
 
-    result = {
-        'target_review': target_review,
-        'reviews': reviews,
-    }
+    result = {'target_review': target_review,
+              'reviews': reviews, }
     return result
 
 
