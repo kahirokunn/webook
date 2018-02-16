@@ -11,6 +11,7 @@ from accounts import urls as account_urls
 from books import urls as book_urls
 from categories import urls as category_urls
 from reviews import urls as review_urls
+from memos import urls as memo_urls
 
 urlpatterns = [
     url('', get_urls(index_urls)),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('books/', get_urls(book_urls)),
     path('categories/', get_urls(category_urls)),
     path('reviews/', get_urls(review_urls)),
+    path('memos/', get_urls(memo_urls)),
 
     # assets
     re_path(r'^media/(?P<path>.*)$', serve, {

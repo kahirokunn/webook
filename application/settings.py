@@ -51,6 +51,7 @@ AUTO_LOAD_DOMAINS = [
     'books',
     'categories',
     'reviews',
+    'memos',
 ]
 
 # メモ： moduleがapp名になる
@@ -59,6 +60,7 @@ AUTO_LOAD_MODULES = [
     'modules.book',
     'modules.orderbook',
     'modules.review',
+    'modules.memo',
 ]
 
 INSTALLED_APPS = [

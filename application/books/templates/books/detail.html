@@ -17,6 +17,7 @@
     {% if my_review is None %}
         <a href="{% url 'reviews:new' book_pk=post.pk %}">Post Review</a>
     {% endif %}
+    <a href="{% url 'memos:new' book_pk=post.pk %}">Post Memo</a>
 
     {% if my_review %}
         <div>
