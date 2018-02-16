@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib import messages
 from submodules import logger
 from constants import ROOT_NAME
-from modules.profile.forms import UserForm
+from modules.profile.forms import NewUserForm
 from modules.profile import service as profile_sv
 from django.contrib.auth.models import User
 from submodules.helper import simple_upload_file, \
@@ -13,7 +13,7 @@ from submodules.helper import simple_upload_file, \
 
 
 class SignUpView(generic.CreateView):
-    form_class = UserForm
+    form_class = NewUserForm
     success_url = reverse_lazy(ROOT_NAME)
     template_name = 'registration/signup.html'
     success_messages = [
@@ -30,13 +30,9 @@ class SignUpView(generic.CreateView):
         post_data = flatten(self.request.POST)
         # ユーザー生成する
         user_fields = ('username', 'password1',)
-        profile_fields = ('thumbnail_url', 'join_at',)
+        profile_fields = ('join_at',)
         user_data = {}
         profile_data = {}
-
-        if 'thumbnail_url' in self.request.FILES:
-            post_data['thumbnail_url'] = simple_upload_file(
-                self.request.FILES['thumbnail_url'])
 
         for field in user_fields:
             user_data[field] = post_data[field]
@@ -49,17 +45,13 @@ class SignUpView(generic.CreateView):
         if created:
             user.set_password(user_data['password1'])
             user.save()
-            profile_sv.new_profile(user,
-                                   profile_data['thumbnail_url'],
-                                   profile_data['join_at'])
+            profile_sv.new_profile(user, profile_data['join_at'])
 
         for success_message in self.success_messages:
             messages.success(self.request, success_message)
 
         logger.info('success to signup.')
 
-        logger.info(post_data['username'])
-        logger.info(post_data['password1'])
         # 自動ログインする
         user = authenticate(self.request,
                             username=post_data['username'],

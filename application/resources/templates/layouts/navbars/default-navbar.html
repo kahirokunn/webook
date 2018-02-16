@@ -41,6 +41,10 @@
                   method="get"
                   class="form-inline mt-2 mt-md-0"
                   style="margin-bottom: 0">
+                {% if THUMBNAIL_URL %}
+                    <img src="{{ user.profile.thumbnail_url }}">
+                {% endif %}
+
                 <input class="form-control mr-sm-2" type="text"
                        placeholder="Keywords..." aria-label="Keywords...">
                 <button class="btn btn-outline-success my-2 my-sm-0"
