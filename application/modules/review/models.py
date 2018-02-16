@@ -5,7 +5,7 @@ import settings
 
 class Review(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=False)
-    book = models.ForeignKey(to='Book', on_delete=False)
+    book = models.ForeignKey(to='book.Book', on_delete=False)
     text = models.TextField()
     star = IntegerRangeField(min_value=1, max_value=5)
 
@@ -33,4 +33,5 @@ class Review(models.Model):
         return cls.objects.filter(user=user, book=book).exists()
 
     def __str__(self):
-        return self.name
+        return 'star: [{0}], short body: [{1}]'.format(self.star,
+                                                       self.text[0:10])

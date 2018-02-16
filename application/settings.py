@@ -58,6 +58,7 @@ AUTO_LOAD_DOMAINS = [
 AUTO_LOAD_MODULES = [
     'modules.book',
     'modules.orderbook',
+    'modules.review',
 ]
 
 INSTALLED_APPS = [

@@ -17,10 +17,3 @@ class NewCategory(ModelForm):
     class Meta:
         model = book_model.Category
         fields = ('name',)
-
-
-class NewReview(ModelForm):
-    class Meta:
-        model = book_model.Review
-        fields = ('text',
-                  'star',)
