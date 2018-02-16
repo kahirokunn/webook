@@ -1,6 +1,13 @@
+from django import forms as django_forms
 from submodules.decorators import valid_attr_or_failed, valid_request_methods
 from typing import Iterable
 from importlib import import_module
+from settings import DEBUG
+from django.core.files.storage import FileSystemStorage
+from time import time
+from submodules import logger
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 @valid_attr_or_failed('urlpatterns', 'app_name')
@@ -74,3 +81,44 @@ class ViewRouter:
             return getattr(module, call_func_name)(request, *args, **kwargs)
 
         return callback
+
+
+def admin_datepicker_media():
+    extra = '' if DEBUG else '.min'
+    css = ('forms.css',)
+    js = (
+        'vendor/jquery/jquery%s.js' % extra,
+        'jquery.init.js',
+        'core.js',
+        'admin/RelatedObjectLookups.js',
+        'actions%s.js' % extra,
+        'urlify.js',
+        'prepopulate%s.js' % extra,
+        'vendor/xregexp/xregexp%s.js' % extra,
+        'calendar.js',
+        'admin/DateTimeShortcuts.js',
+    )
+    return django_forms.Media(
+        js=['admin/js/%s' % url for url in js],
+        css={'all': ['admin/css/%s' % url for url in css]})
+
+
+def simple_upload_file(file) -> str:
+    fs = FileSystemStorage()
+    name = '{0}:{1}'.format(time(), file.name)
+    filename = fs.save(name, file)
+    uploaded_file_url = fs.url(filename)
+
+    return uploaded_file_url
+
+
+def elapsed_months(ymd: str) -> int:
+    ymd = ymd_to_date(ymd)
+    now = datetime.date(datetime.now())
+    delta = relativedelta(ymd, now)
+    month_count = delta.years * 12 + delta.months
+    return abs(int(month_count))
+
+
+def ymd_to_date(ymd: str) -> datetime.date:
+    return datetime.date(datetime.strptime(ymd, '%Y-%m-%d'))

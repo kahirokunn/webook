@@ -61,6 +61,7 @@ AUTO_LOAD_MODULES = [
     'modules.orderbook',
     'modules.review',
     'modules.memo',
+    'modules.profile',
 ]
 
 INSTALLED_APPS = [
@@ -217,4 +218,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/books'
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = LOGIN_URL

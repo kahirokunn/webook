@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.db import migrations, models
-import submodules.custom_model_fields
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -11,20 +11,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('book', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Review',
+            name='Profile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('star', submodules.custom_model_fields.IntegerRangeField()),
+                ('thumbnail_url', models.ImageField(blank=True, null=True, upload_to='images')),
+                ('join_at', models.DateField()),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('book', models.ForeignKey(on_delete=False, to='book.Book')),
-                ('user', models.ForeignKey(on_delete=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

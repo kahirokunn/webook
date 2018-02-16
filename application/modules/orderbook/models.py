@@ -1,13 +1,13 @@
-from django.conf import settings
 from django.db import models
 from modules.book.models import Book
 from submodules import logger
+from settings import AUTH_USER_MODEL
 
 
 class OrderBook(models.Model):
     # user 1 対 n
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=False)
-    # book 1 対 1
+    user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=False)
+    # book 1 対 n
     book = models.ForeignKey(to=Book, on_delete=False)
     price = models.IntegerField()
     ordered_at = models.DateField()

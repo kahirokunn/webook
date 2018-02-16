@@ -18,10 +18,14 @@ def get(request, pk):
 def post(request, pk):
     """登録されている本を購入する"""
     data = flatten(request.POST)
+    data['price'] = int(data['price'])
+    if not orderbook_sv.is_money_sufficient(request.user, data['price']):
+        messages.warning(request, '予算が足りません')
+        return redirect(app_name + ':detail', pk=pk)
 
     orderbook = orderbook_sv.order_existing_one(request.user,
                                                 book_sv.get_book(pk),
-                                                int(data['price']),
+                                                data['price'],
                                                 data['ordered_at'])
     messages.success(request, '本を購入しました！')
 

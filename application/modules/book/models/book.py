@@ -5,7 +5,7 @@ from submodules.helper import format_enum_to_choices
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     thumbnail_url = models.ImageField(upload_to='images',
                                       null=True, blank=True)
     orderd_page_url = models.URLField(null=True, blank=True)
@@ -17,6 +17,10 @@ class Book(models.Model):
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def is_exists(cls, title) -> bool:
+        return cls.objects.filter(title=title).exists()
 
     @classmethod
     def get_all(cls) -> list:
