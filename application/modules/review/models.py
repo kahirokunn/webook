@@ -1,10 +1,10 @@
 from django.db import models
 from submodules.custom_model_fields import IntegerRangeField
-import settings
+from settings import AUTH_USER_MODEL
 
 
 class Review(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=False)
+    user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=False)
     book = models.ForeignKey(to='book.Book', on_delete=False)
     text = models.TextField()
     star = IntegerRangeField(min_value=1, max_value=5)

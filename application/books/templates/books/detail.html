@@ -4,7 +4,7 @@
 
     <div class="post">
         <h1>{{ post.title }}</h1>
-        <img src="{{ MEDIA_URL }}{{ post.thumbnail_url }}">
+        <img src="{{ post.thumbnail_url }}" style="max-width: 500px">
         <p>{{ post.orderd_page_url }}</p>
         <p>{{ post.book_url }}</p>
         <p>{{ post.type }}</p>
@@ -13,11 +13,20 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'books:buy' pk=post.pk%}">Buy More</a>
+    <a href="{% url 'books:buy' pk=post.pk %}">Buy More</a>
     {% if my_review is None %}
         <a href="{% url 'reviews:new' book_pk=post.pk %}">Post Review</a>
     {% endif %}
     <a href="{% url 'memos:new' book_pk=post.pk %}">Post Memo</a>
+
+    <h3>Buyer list</h3>
+    {% for record in orderbook %}
+        <div>
+            <span>username: {{ record.user.username }}</span>
+            <span>price: {{ record.price }}</span>
+            <br>
+        </div>
+    {% endfor %}
 
     <h3>レビュー</h3>
     {% if my_review %}

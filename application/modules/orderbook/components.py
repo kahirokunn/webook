@@ -1,8 +1,7 @@
 from .models import OrderBook
 
 
-def order_the_book(
-        user, book, price: int, ordered_at: str) -> OrderBook:
+def order_the_book(user, book, price: int, ordered_at: str) -> OrderBook:
     """本を注文する"""
     orderbook = OrderBook()
     orderbook.user = user

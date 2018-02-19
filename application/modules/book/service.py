@@ -13,9 +13,12 @@ def get_book(pk: int):
     return book_model.Book.get(pk)
 
 
-def new_book(params: dict) -> book_model.Book:
+def new_book(params: dict):
     """新しい本を作成する"""
-    return book_cmpt.generate_book(params)
+    if book_model.Book.is_exists(params['title']):
+        return None
+    else:
+        return book_cmpt.generate_book(params)
 
 
 def add_category_to_book(book, category_id: int) -> bool:
