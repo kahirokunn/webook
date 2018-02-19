@@ -35,14 +35,18 @@
                     <a class="nav-link" href="#">
                         Ordered History</a></li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:update' %}">
+                        MyPage</a></li>
+
             </ul>
 
             <form action="{% url 'books:index' %}"
                   method="get"
                   class="form-inline mt-2 mt-md-0"
                   style="margin-bottom: 0">
-                {% if THUMBNAIL_URL %}
-                    <img src="{{ user.profile.thumbnail_url }}">
+                {% if user.profile.thumbnail_url %}
+                    <img class="thumbnail-nav" src="{{ user.profile.thumbnail_url }}">
                 {% endif %}
 
                 <input class="form-control mr-sm-2" type="text"

@@ -6,13 +6,19 @@ from modules.profile import service as profile_sv
 from django.views.decorators.http import require_GET, require_POST
 from submodules.helper import simple_upload_file, \
     flatten_dict_only_one_element as flatten
+from submodules import logger
 
 app_name = 'accounts'
 
 
 @require_GET
 def get(request):
-    return render(request, app_name + '/update.html', {'form': UpdateUserForm})
+    initial = {
+        'thumbnail_url': request.user.profile.thumbnail_url,
+        'join_at': request.user.profile.join_at,
+    }
+    return render(request, app_name + '/update.html',
+                  {'form': UpdateUserForm(initial=initial)})
 
 
 @require_POST
@@ -33,4 +39,4 @@ def post(request):
     user.profile.save()
 
     messages.success(request, 'プロフィールを更新しました')
-    return redirect(app_name + ':update', pk=orderbook.book.pk)
+    return redirect(app_name + ':update')

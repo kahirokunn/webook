@@ -9,8 +9,9 @@ from django.core.files.images import get_image_dimensions
 
 class NewUserForm(Base):
     class Meta(Base.Meta):
-        fields = Base.Meta.fields + ('join_at',)
+        fields = Base.Meta.fields + ('thumbnail_url', 'join_at',)
 
+    thumbnail_url = forms.ImageField()
     join_at = forms.DateField(widget=AdminDateWidget)
 
     @property
