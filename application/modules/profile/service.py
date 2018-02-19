@@ -3,8 +3,8 @@ from . import components as profile_cmpt
 from submodules.helper import elapsed_months
 
 
-def new_profile(user, join_at: str) -> models.Profile:
-    return profile_cmpt.new_profile(user, join_at)
+def new_profile(user, params) -> models.Profile:
+    return profile_cmpt.new_profile(user, params)
 
 
 def update_profile(user, params) -> models.Profile:
