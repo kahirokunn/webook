@@ -1,10 +1,9 @@
 from . import models
 
 
-def new_profile(user, join_at) -> models.Profile:
-    profile = models.Profile()
+def new_profile(user, params) -> models.Profile:
+    profile = models.Profile(**params)
     profile.user = user
-    profile.join_at = join_at
     profile.save()
     return profile
 

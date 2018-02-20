@@ -6,10 +6,12 @@ from submodules.helper import admin_datepicker_media
 
 class NewOrder(book_form.NewBook):
     class Meta(book_form.NewBook.Meta):
-        fields = book_form.NewBook.Meta.fields + ('price', 'ordered_at')
+        fields = book_form.NewBook.Meta.fields + (
+            'price', 'ordered_at', 'receipt_url')
 
     price = django_forms.IntegerField()
     ordered_at = django_forms.DateField(widget=AdminDateWidget)
+    receipt_url = django_forms.ImageField()
 
     @property
     def media(self):
@@ -19,10 +21,12 @@ class NewOrder(book_form.NewBook):
 
 class Order(django_forms.Form):
     class Meta:
-        fields = book_form.NewBook.Meta.fields + ('price', 'ordered_at')
+        fields = book_form.NewBook.Meta.fields + (
+            'price', 'ordered_at', 'receipt_url')
 
     price = django_forms.IntegerField()
     ordered_at = django_forms.DateField(widget=AdminDateWidget)
+    receipt_url = django_forms.ImageField()
 
     @property
     def media(self):

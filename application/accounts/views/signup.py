@@ -41,12 +41,16 @@ class SignUpView(generic.CreateView):
         for field in profile_fields:
             profile_data[field] = post_data[field]
 
+        if 'thumbnail_url' in self.request.FILES:
+            profile_data['thumbnail_url'] = simple_upload_file(
+                self.request.FILES['thumbnail_url'])
+
         user, created = User.objects.get_or_create(
             username=user_data['username'])
         if created:
             user.set_password(user_data['password1'])
             user.save()
-            profile_sv.new_profile(user, profile_data['join_at'])
+            profile_sv.new_profile(user, profile_data)
 
         for success_message in self.success_messages:
             messages.success(self.request, success_message)

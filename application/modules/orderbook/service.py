@@ -5,20 +5,27 @@ from ..wallet import service as wallet_sv
 from submodules import logger
 
 
+def get_orderbook() -> list:
+    return models.OrderBook.get_all()
+
+
 def order_new_one(user, book_params: dict,
-                  price: int, ordered_at: str):
+                  price: int, ordered_at: str, receipt_url: str):
     """新しい本を注文する"""
     book = book_sv.new_book(book_params)
     if book is not None:
-        return orderbook_cmpt.order_the_book(user, book, price, ordered_at)
+        return orderbook_cmpt.order_the_book(user, book, price, ordered_at,
+                                             receipt_url)
     else:
         return None
 
 
 def order_existing_one(
-        user, book, price: int, ordered_at: str) -> models.OrderBook:
+        user, book, price: int, ordered_at: str,
+        receipt_url: str) -> models.OrderBook:
     """登録されてる本を注文する"""
-    return orderbook_cmpt.order_the_book(user, book, price, ordered_at)
+    return orderbook_cmpt.order_the_book(user, book, price, ordered_at,
+                                         receipt_url)
 
 
 def cancel_order(pk: int) -> bool:
@@ -40,9 +47,8 @@ def get_orderbook_by_book(book) -> list:
     return orderbook_cmpt.get_orderbook_by_book(book)
 
 
-def is_exists_record_by_user(user) -> bool:
-    """指定したユーザーは購入記録があるかどうか"""
-    return models.OrderBook.has_book_by_user(user=user)
+def get_user_orderbook(user) -> list:
+    return orderbook_cmpt.get_orderbook_by_user(user)
 
 
 def is_money_sufficient(user, price: int) -> bool:
