@@ -26,10 +26,15 @@ def post(request):
         data['thumbnail_url'] = simple_upload_file(
             request.FILES['thumbnail_url'])
 
+    if 'receipt_url' in request.FILES:
+        data['receipt_url'] = simple_upload_file(
+            request.FILES['receipt_url'])
+
     orderbook = orderbook_sv.order_new_one(request.user,
                                            data,
                                            int(data['price']),
-                                           data['ordered_at'])
+                                           data['ordered_at'],
+                                           data['receipt_url'], )
     if orderbook is not None:
         messages.success(request, '本を購入しました')
         return redirect(app_name + ':detail', pk=orderbook.book.pk)
