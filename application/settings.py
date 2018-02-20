@@ -52,6 +52,7 @@ AUTO_LOAD_DOMAINS = [
     'categories',
     'reviews',
     'memos',
+    'orderhistories',
 ]
 
 # メモ： moduleがapp名になる

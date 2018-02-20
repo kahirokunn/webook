@@ -11,7 +11,7 @@ class OrderBook(models.Model):
     book = models.ForeignKey(to=Book, on_delete=False)
     price = models.IntegerField()
     ordered_at = models.DateField()
-    receipt = models.ImageField(upload_to='images')
+    receipt_url = models.ImageField(upload_to='images')
     cancelled_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -19,7 +19,7 @@ class OrderBook(models.Model):
     @classmethod
     def get_all(cls) -> list:
         """全てを取得する"""
-        return [cls.objects.all()]
+        return list(cls.objects.all())
 
     @classmethod
     def get_cancelled_all(cls) -> list:

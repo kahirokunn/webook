@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <div class='post'><a href='{% url 'books:detail' pk=post.book.pk %}'>
+            {% if post.book.thumbnail_url %}
+                <span>thumbnail: </span>
+                <img src='{{ post.book.thumbnail_url }}'
+                     style='max-width:500px'>
+            {% endif %}
+            <span>receipt: </span>
+            <img src='{{ post.receipt_url }}'
+                 style='max-width:500px'>
+
+            <span>title: </span>{{ post.book.title }}
+            <span>buyer_name: </span>{{ post.user.username }}
+            <span>price: </span>{{ post.price }}
+            <span>orderd_at: </span>{{ post.orderd_at }}
+        </a></div>
+        <br>
+    {% endfor %}
+
+{% endblock %}
